@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author asdv4
  */
 public class EmailServlet extends HttpServlet {
-
+    
+    int count = 0;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,6 +32,10 @@ public class EmailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String emailAddress = request.getParameter("emailAddress");
+        String path = request.getContextPath();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -38,9 +44,22 @@ public class EmailServlet extends HttpServlet {
             out.println("<title>Servlet EmailServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>" + request.getParameter("firstName") + "</h1>");
-            out.println("<h1>" + request.getParameter("lastName") + "</h1>");
-            out.println("<h1>" + request.getParameter("emailAddress") + "</h1>");
+            out.println("<h1>Servlet EmailServlet at " + path + "</h1>");
+            out.println("<table cellspacing=\"5\" cellpadding=\"10\" border=\"2\">\n"
+                +"<tr>"
+                +"<td align=\"right\"> First Name : </td>"
+                +"<td>" + firstName + "</td>"
+                +"<td>" + ++count + "</td>"
+                +"</tr>\n"
+                +"<tr>"
+                +"<td align=\"right\"> Last Name : </td>"
+                +"<td>" + lastName + "</td>"
+                +"</tr>\n"
+                +"<tr>"
+                +"<td align=\"right\">Email Address : </td>"
+                +"<td>" + emailAddress + "</td>"
+                +"</tr>\n"
+                +"</table>\n");
             out.println("</body>");
             out.println("</html>");
         }
